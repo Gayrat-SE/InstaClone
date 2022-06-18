@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Instagram</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets1/favicon.svg" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js" defer></script>
-</head>
-
-<body>
-    
-    
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
     <main class="main-container">
         <section class="content-container">
             <div class="content">
@@ -24,7 +12,7 @@
 
                         <div class="post__content">
                             <div class="post__medias">
-                                <img class="post__media" src="assets1/insta-clone.png" alt="Post Content">
+                                <img src="{{post.picture.url}}">
                             </div>
                         </div>
 
@@ -84,8 +72,4 @@
             
         </section>
     </main>
-
-    
-</body>
-
-</html>
+{% endblock content %}

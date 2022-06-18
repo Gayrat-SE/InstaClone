@@ -247,7 +247,7 @@
 
                         <div class="post__content">
                             <div class="post__medias">
-                                <img class="post__media" src="{{post.picture.url}}" alt="Post Content">
+                                <a href="{% url 'postDetail' post.id %}"><img class="post__media" src="{{post.picture.url}}" alt="Post Content" style="width:620px; height:550px;" ></a>
                             </div>
                         </div>
 

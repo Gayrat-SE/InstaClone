@@ -1,10 +1,12 @@
 
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from .models import Post, Tag, Follow, Stream
 from django.contrib.auth.decorators import login_required
 from .forms import  NewPostform
 # Create your views here.
-
+from string import Template
+from django.utils.safestring import mark_safe
+from django.forms import ImageField
 
 def index(request):
     user= request.user
@@ -38,6 +40,7 @@ def newPost(request):
             p, created = Post.objects.get_or_create(picture=picture, caption=caption, user=user)
             p.tag.set(tags_obj)
             p.save()
+            print("hello")
             return redirect('index')
     else:
         form = NewPostform()
@@ -45,3 +48,9 @@ def newPost(request):
         'form': form
     }
     return render(request, 'newpost.html', context)            
+
+
+def PostDetail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    context = {'post': post}
+    return render(request, 'details.html', context)
