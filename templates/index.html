@@ -247,7 +247,7 @@
 
                         <div class="post__content">
                             <div class="post__medias">
-                                <a href="{% url 'postDetail' post.id %}"><img class="post__media" src="{{post.picture.url}}" alt="Post Content" style="width:620px; height:550px;" ></a>
+                                <a href="{% url 'post-details' post.id %}"><img class="post__media" src="{{post.picture.url}}" alt="Post Content" style="width:620px; height:550px;" ></a>
                             </div>
                         </div>
 
@@ -295,7 +295,7 @@
                                 </div>
                                 <span class="post__dadte-time">
                                     {% for tag in post.tag.all%}
-                                        <b href="{{tag.get_absolute_url}}">#{{tag}}</b>
+                                        <a href="{{tag.get_absolute_url}}">#{{tag}}</a>
                                     {% endfor %}
                                 </span>
                                 <span class="post__date-time">{{post.posted|date:"d M,Y"}}</span>

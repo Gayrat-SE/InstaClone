@@ -1,4 +1,5 @@
 
+from multiprocessing import context
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import Post, Tag, Follow, Stream
 from django.contrib.auth.decorators import login_required
@@ -54,3 +55,10 @@ def PostDetail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     context = {'post': post}
     return render(request, 'details.html', context)
+
+def tags(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    posts = Post.objects.filter(tag=tag).order_by('-posted')
+    context = {'posts': posts, 'tag': tag}
+    
+    return render(request, 'tag.html', context)
