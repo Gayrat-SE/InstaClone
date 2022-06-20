@@ -1,8 +1,10 @@
 
 from multiprocessing import context
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Post, Tag, Follow, Stream
+from django.urls import reverse
+from .models import Post, Tag, Follow, Stream, Likes
 from django.contrib.auth.decorators import login_required
+from django.http  import HttpResponseRedirect
 from .forms import  NewPostform
 # Create your views here.
 from string import Template
@@ -62,3 +64,20 @@ def tags(request, tag_slug):
     context = {'posts': posts, 'tag': tag}
     
     return render(request, 'tag.html', context)
+
+
+def like(request, post_id):
+    user = request.user
+    post = Post.objects.get(id=post_id)
+    current_likes = post.likes
+    liked = Likes.objects.filter(user=user, post=post).count()
+    if not liked:
+        liked = Likes.objects.create(user=user, post=post)
+        current_likes += 1
+    else:
+        liked = Likes.objects.get(user=user, post=post).delete()
+        current_likes -= 1
+
+    post.likes = current_likes
+    post.save()
+    return HttpResponseRedirect(reverse('post-details', args=[post_id]))
